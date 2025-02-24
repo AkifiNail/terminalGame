@@ -19,7 +19,7 @@ class Terminal {
     }
 
     handleInput(event) {
-        if (this.isPrinting) return; // Bloquer l'entrée pendant l'affichage progressif
+        if (this.isPrinting) return; 
 
         if (event.key === "Enter") {
             const command = this.input.value.trim();
@@ -195,12 +195,12 @@ const terminal = new Terminal("terminal", "commandInput");
 // Ajout de commandes dynamiques
 terminal.registerCommand("help", () => {
     terminal.printSlow("Voici les commandes disponibles :");
-    terminal.printSlow("[✓] help - Affiche cette aide");
-    terminal.printSlow("[✓] snake - Lance un jeu de serpent");
-    terminal.printSlow("[✓] infos - Affiche des informations sur la situation");
-    terminal.printSlow("[???] ??? - ??.");
-    terminal.printSlow("[???] ??? - ??.");
-    terminal.printSlow("[???] ??? - ??.");
-    terminal.printSlow("Il y a des commandes secrètes à découvrir. Bonne chance !");
+    terminal.printSlow("help - Affiche cette aide");
+    terminal.printSlow("snake");
+    terminal.printSlow("infos");
+    terminal.printSlow("??? - ??.");
+    terminal.printSlow("??? - ??.");
+    terminal.printSlow("??? - ??.");
+
 });
 
