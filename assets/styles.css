@@ -1,0 +1,53 @@
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+}
+
+#terminal-container {
+    width: 80%;
+    max-width: 800px;
+    background: #000;
+    color: #33ff33;
+    padding: 15px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#terminal {
+    height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-size: 16px;
+}
+
+#input-line {
+    display: flex;
+}
+
+#prompt {
+    color: #33ff33;
+}
+
+#commandInput {
+    background: transparent;
+    color: #33ff33;
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 16px;
+    caret-color: #33ff33;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
