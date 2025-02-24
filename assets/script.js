@@ -9,6 +9,7 @@ class Terminal {
         this.awaitingResponse = false;
         this.awaitingHelpResponse = false;
         this.isPrinting = false;
+        this.userName = '';
 
         this.init();
     }
@@ -39,46 +40,64 @@ class Terminal {
         this.print(`> ${command}`);
 
         if (this.firstInteraction) {
-            this.printSlow("Il y a quelqu'un ? Réponds-moi avec 'oui' si tu es là.");
-            this.firstInteraction = false;
-            this.awaitingResponse = true;
+            this.printSlow("Il y a quelqu'un ? Réponds-moi avec 'oui' si tu es là.", () => {
+                this.firstInteraction = false;
+                this.awaitingResponse = true;
+            });
             return;
         }
 
         if (this.awaitingResponse && command.toLowerCase() === "oui") {
-            this.printSlow("Ah enfin ! Je pensais être seul ici...");
-            this.awaitingResponse = false;
-            setTimeout(() => {
-                this.printSlow("Bon... je crois qu'on est tous les deux bloqués ici...", () => {
-                    this.printSlow("Je pense que c'est la fin pour nous. :(\nÇa fait 10 ans que je suis coincé ici.", () => {
-                        this.printSlow("La personne qui m'a enfermé ici a caché un code derrière cette porte secrète.", () => {
-                            // Affiche la porte après le texte avec un fade-in
-                            this.showElement("image", { 
-                                src: "./assets/images/door.png", 
-                                alt: "door", 
-                                top: "20px", 
-                                right: "40px" 
-                            });
-                            this.printSlow("Mais je ne trouve pas ce code... Je vais peut-être rester ici pour l'éternité...", () => {
-                                this.printSlow("À moins que tu sois prêt à m'aider ?", () => this.showHelpOptions());
+            this.printSlow("Ah enfin ! Je pensais être seul ici...", () => {
+                this.awaitingResponse = false;
+                setTimeout(() => {
+                    this.printSlow("Bon... je crois qu'on est tous les deux bloqués ici...", () => {
+                        this.printSlow("Je pense que c'est la fin pour nous. :(\nÇa fait 10 ans que je suis coincé ici.", () => {
+                            this.printSlow("La personne qui m'a enfermé se trouve derrière cette porte secrète.", () => {
+                                // Affiche la porte après le texte avec un fade-in
+                                this.showElement("image", { 
+                                    src: "./assets/images/door.png", 
+                                    alt: "door", 
+                                    top: "20px", 
+                                    right: "40px",
+                                    height: "150px"
+                                });
+                                this.printSlow("Mais je ne trouve pas la clé... Je vais peut-être rester ici pour l'éternité...", () => {
+                                    this.printSlow("À moins que tu sois prêt à m'aider ?", () => this.showHelpOptions());
+                                });
                             });
                         });
                     });
-                });
-            }, 2000);
+                }, 2000);
+            });
             return;
         }
 
         if (this.awaitingHelpResponse) {
             if (command.toLowerCase() === "ok") {
-                this.printSlow("Merci ! Ensemble, nous allons trouver ce code !");
-                this.awaitingHelpResponse = false;
+                this.printSlow("Merci ! Ensemble, nous allons trouver ce code !", () => {
+                    this.awaitingHelpResponse = false;
+                    this.askName(); // Demander le prénom après l'acceptation de l'aide
+                });
             } else if (command.toLowerCase() === "non") {
-                this.printSlow("Oh... d'accord... Je suppose que c'est la fin pour moi alors...");
+                this.printSlow("Oh... d'accord... Je suppose que c'est la fin pour moi alors... salut...", () => {
+                    setTimeout(() => {
+                        window.close();
+                    }, 5000);
+                });
                 this.awaitingHelpResponse = false;
             } else {
                 this.printSlow("Tape 'ok' pour accepter ou 'non' pour refuser.");
             }
+            return;
+        }
+
+        // Traitement du prénom
+        if (this.awaitingResponse) {
+            this.userName = command.trim();
+            this.printSlow(`Salut ${this.userName} ! Moi c'est Julius, et...`, () => {
+                this.awaitingResponse = false; // Arrête d'attendre une réponse
+            });
             return;
         }
 
@@ -122,6 +141,11 @@ class Terminal {
         this.awaitingHelpResponse = true;
     }
 
+    askName() {
+        this.printSlow("D'accord ! Quel est ton prénom ?");
+        this.awaitingResponse = true;  // Attente de la réponse du nom
+    }
+
     // Fonction générique pour afficher des éléments (image ou texte)
     showElement(type, options = {}) {
         let element;
@@ -132,7 +156,7 @@ class Terminal {
             element.src = options.src;
             element.alt = options.alt || "";
             element.style.position = "absolute";
-            element.style.height = options.height || "100px";
+            element.style.height = options.height || "150px";
             element.style.top = options.top || "30px";
             element.style.right = options.right || "60px";
             element.classList.add("fade-in"); // Ajouter la classe fade-in
@@ -166,18 +190,17 @@ class Terminal {
     }
 }
 
-// Initialisation du terminal
 const terminal = new Terminal("terminal", "commandInput");
 
 // Ajout de commandes dynamiques
 terminal.registerCommand("help", () => {
-    terminal.printSlow("Commandes disponibles: help, clear, hello");
+    terminal.printSlow("Voici les commandes disponibles :");
+    terminal.printSlow("[✓] help - Affiche cette aide");
+    terminal.printSlow("[✓] snake - Lance un jeu de serpent");
+    terminal.printSlow("[✓] infos - Affiche des informations sur la situation");
+    terminal.printSlow("[???] ??? - ??.");
+    terminal.printSlow("[???] ??? - ??.");
+    terminal.printSlow("[???] ??? - ??.");
+    terminal.printSlow("Il y a des commandes secrètes à découvrir. Bonne chance !");
 });
 
-terminal.registerCommand("clear", () => {
-    terminal.terminal.innerHTML = "";
-});
-
-terminal.registerCommand("hello", () => {
-    terminal.printSlow("Bonjour, bienvenue dans ce terminal !");
-});
