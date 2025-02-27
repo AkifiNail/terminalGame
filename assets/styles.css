@@ -129,3 +129,44 @@ canvas {
     margin: 10px auto;
     background-color:  transparent;
 }
+
+
+#gameCanvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid black;
+}
+
+
+#score {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    display: none;
+}
+
+
+#restartButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent;
+    font-family: 'Courier New', monospace;
+    color: #ff0000;
+    border: 1 px solid #ff0000;
+    cursor: pointer;
+    display: none;
+    z-index: 2;
+}
+
+.visible {
+    display: block !important;
+}

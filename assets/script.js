@@ -10,6 +10,9 @@ class Terminal {
     this.awaitingHelpResponse = false;
     this.isPrinting = false;
     this.userName = "";
+    this.snakeCompleted = false;
+    this.inventory = [];
+    this.isInputDisabled = false;
 
     this.init();
   }
@@ -19,7 +22,7 @@ class Terminal {
   }
 
   handleInput(event) {
-    if (this.isPrinting) return;
+    if (this.isPrinting || this.isInputDisabled) return;
 
     if (event.key === "Enter") {
       const command = this.input.value.trim();
@@ -63,7 +66,6 @@ class Terminal {
                   this.printSlow(
                     "La personne qui m'a enfermé se trouve derrière cette porte secrète.",
                     () => {
-                      // Affiche la porte après le texte avec un fade-in
                       this.showElement("image", {
                         src: "./assets/images/door.png",
                         alt: "door",
@@ -97,7 +99,7 @@ class Terminal {
           "Merci ! Ensemble, nous allons trouver ce code !",
           () => {
             this.awaitingHelpResponse = false;
-            this.askName(); // Demander le prénom après l'acceptation de l'aide
+            this.askName();
           }
         );
       } else if (command.toLowerCase() === "non") {
@@ -116,14 +118,13 @@ class Terminal {
       return;
     }
 
-    // Traitement du prénom
     if (this.awaitingResponse) {
       this.terminal.innerHTML = "";
       this.userName = command.trim();
       this.printSlow(
         `Salut ${this.userName} ! Moi c'est Julius, et je sais que en tapant la commande "help" tu peux voir la liste des commandes`,
         () => {
-          this.awaitingResponse = false; // Arrête d'attendre une réponse
+          this.awaitingResponse = false;
         }
       );
       return;
@@ -171,14 +172,12 @@ class Terminal {
 
   askName() {
     this.printSlow("D'accord ! Quel est ton prénom ?");
-    this.awaitingResponse = true; // Attente de la réponse du nom
+    this.awaitingResponse = true;
   }
 
-  // Fonction générique pour afficher des éléments (image ou texte)
   showElement(type, options = {}) {
     let element;
 
-    // Si l'élément est une image
     if (type === "image") {
       element = document.createElement("img");
       element.src = options.src;
@@ -187,30 +186,43 @@ class Terminal {
       element.style.height = options.height || "150px";
       element.style.top = options.top || "30px";
       element.style.right = options.right || "60px";
-      element.classList.add("fade-in"); // Ajouter la classe fade-in
+      element.classList.add("fade-in");
       document.body.appendChild(element);
 
-      // Afficher l'élément avec un délai
       setTimeout(() => {
         element.classList.add("visible");
-      }, 500); // Un délai pour assurer l'affichage après le texte
+      }, 500);
     }
 
-    // Si l'élément est du texte
     if (type === "text") {
       element = document.createElement("div");
       element.textContent = options.text || "";
-      element.classList.add("fade-in"); // Ajouter la classe fade-in
+      element.classList.add("fade-in");
       document.getElementById("terminal").appendChild(element);
 
-      // Afficher l'élément avec un délai
       setTimeout(() => {
         element.classList.add("visible");
-      }, 500); // Un délai pour assurer l'affichage après le texte
+      }, 500);
     }
 
-    // Retourner l'élément pour une manipulation ultérieure
     return element;
+  }
+
+  disableInput() {
+    this.isInputDisabled = true;
+    this.input.disabled = true;
+    this.input.style.display = "none";
+  }
+
+  enableInput() {
+    this.isInputDisabled = false;
+    this.input.disabled = false;
+    this.input.style.display = "block";
+  }
+
+  addToInventory(item) {
+    this.inventory.push(item);
+    this.printSlow(`Tu as récupéré : ${item}`);
   }
 
   registerCommand(name, callback) {
@@ -220,7 +232,6 @@ class Terminal {
 
 const terminal = new Terminal("terminal", "commandInput");
 
-// Ajout de commandes dynamiques
 terminal.registerCommand("help", () => {
   terminal.printSlow("Voici les commandes disponibles :");
   terminal.printSlow("- help");
@@ -255,16 +266,40 @@ terminal.registerCommand("infos", () => {
 });
 
 terminal.registerCommand("snake", () => {
-  this.terminal.innerHTML = "";
+  if (terminal.snakeCompleted) {
+    terminal.printSlow("Tu as déjà terminé le jeu Snake avec succès !");
+    return;
+  }
+
+  terminal.terminal.innerHTML = "";
   terminal.printSlow("Lancement du jeu Snake...");
 
-  const canvas = document.createElement("canvas");
-  canvas.width = 300;
-  canvas.height = 300;
-  canvas.id = "snakeCanvas";
-  canvas.style.border = "1px solid green";
-  terminal.terminal.appendChild(canvas);
+  terminal.disableInput();
 
-  // Lance le jeu Snake
-  const game = new SnakeGame(canvas.id);
+  setTimeout(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 300;
+    canvas.height = 300;
+    canvas.id = "snakeCanvas";
+    canvas.style.border = "1px solid green";
+    terminal.terminal.appendChild(canvas);
+
+    let scoreSnake = document.getElementById("score");
+    if (scoreSnake) {
+      scoreSnake.classList.add("visible");
+    }
+
+    const game = new SnakeGame(canvas.id, terminal);
+  }, 3000);
+});
+
+terminal.registerCommand("inventory", () => {
+  if (terminal.inventory.length === 0) {
+    terminal.printSlow("Ton inventaire est vide.");
+  } else {
+    terminal.printSlow("Ton inventaire contient :");
+    terminal.inventory.forEach((item) => {
+      terminal.printSlow(`- ${item}`);
+    });
+  }
 });
