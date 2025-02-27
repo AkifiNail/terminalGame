@@ -1,0 +1,16 @@
+body{
+    height: 100vh;
+    background-image: url('/assets/images/windowBg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+
+footer{
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+}

@@ -82,14 +82,18 @@ class SnakeGame {
     if (head.x === this.food.x && head.y === this.food.y) {
       this.score++;
       this.food = this.createFood();
-      if (this.score === 10) {
+      if (this.score === 1) {
         this.terminal.snakeCompleted = true; // Marque le jeu comme terminé dans le terminal
         clearInterval(this.gameInterval); // Arrête la boucle de jeu
         this.gameOver = true; // Met le jeu en état "Game Over"
+        this.terminal.addToInventory(
+          "Clé decryptage - '/useClé' - pour l'utiliser"
+        );
+        this.terminal.addToInventory("Lampe - '/useLampe' - pour l'utiliser");
 
         // Afficher un message de victoire sur le canvas
         this.context.fillStyle = "gold"; // Couleur du texte
-        this.context.font = "13px 'Courier New', monospace"; // Police et taille du texte
+        this.context.font = "10px 'Courier New', monospace"; // Police et taille du texte
         this.context.textAlign = "center"; // Centrer le texte horizontalement
         this.context.fillText(
           "Vous avez récupéré une clé de décryptage !",
@@ -102,23 +106,34 @@ class SnakeGame {
         // Nettoyer le canvas et revenir au terminal après un délai
         setTimeout(() => {
           scoreSnake2.classList.remove("visible");
-          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // Nettoie le canvas
-          this.canvas.style.display = "none"; // Masque le canvas
+          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.canvas.style.display = "none";
 
-          // Revenir à l'affichage du terminal
-          this.terminal.terminal.style.display = "block"; // Affiche le terminal
-          this.terminal.input.style.display = "block"; // Affiche l'input du terminal
+          this.terminal.terminal.style.display = "block";
+          this.terminal.input.style.display = "block";
 
           terminal.terminal.innerHTML = "";
 
           this.terminal.enableInput();
 
-          this.terminal.printSlow("Bien joué ! Tu as réussi le fameux Snake !");
-          this.terminal.printSlow(
-            "Tu as récupéré une clé de décryptage dans ton inventaire."
-          );
-        }, 3000); // Délai de 3 secondes avant de revenir au terminal
-        return; // Quitte la méthode pour ne pas continuer la partie
+          const printMessages = (messages, index = 0) => {
+            if (index < messages.length) {
+              this.terminal.printSlow(messages[index], () => {
+                setTimeout(() => {
+                  printMessages(messages, index + 1);
+                }, 1000);
+              });
+            }
+          };
+
+          const messages = [
+            "Bien joué ! Tu as réussi le fameux Snake !",
+            "Tu as récupéré une clé de décryptage dans ton inventaire, fait /inv la voir",
+          ];
+
+          printMessages(messages);
+        }, 3000);
+        return;
       }
     } else {
       this.snake.pop();

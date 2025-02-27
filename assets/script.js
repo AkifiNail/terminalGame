@@ -222,7 +222,6 @@ class Terminal {
 
   addToInventory(item) {
     this.inventory.push(item);
-    this.printSlow(`Tu as récupéré : ${item}`);
   }
 
   registerCommand(name, callback) {
@@ -237,7 +236,7 @@ terminal.registerCommand("help", () => {
   terminal.printSlow("- help");
   terminal.printSlow("- snake");
   terminal.printSlow("- infos");
-  terminal.printSlow("- ??? - ??.");
+  terminal.printSlow("- porte");
   terminal.printSlow("- ??? - ??.");
   terminal.printSlow("- ??? - ??.");
 });
@@ -293,13 +292,72 @@ terminal.registerCommand("snake", () => {
   }, 3000);
 });
 
-terminal.registerCommand("inventory", () => {
+terminal.registerCommand("/inv", () => {
+  if (!terminal.snakeCompleted) {
+    terminal.printSlow(
+      "Tu n'as pas encore accès à l'inventaire. Termine le jeu Snake d'abord !"
+    );
+    return;
+  }
+
   if (terminal.inventory.length === 0) {
     terminal.printSlow("Ton inventaire est vide.");
   } else {
-    terminal.printSlow("Ton inventaire contient :");
+    terminal.printSlow("Voici ton inventaire :");
     terminal.inventory.forEach((item) => {
       terminal.printSlow(`- ${item}`);
     });
   }
 });
+
+terminal.registerCommand("porte", () => {
+  const hasLamp = terminal.inventory.some((item) => item.includes("Lampe"));
+
+  if (hasLamp) {
+    terminal.printSlow(
+      "Vous êtes devant une porte, mais il fait trop sombre pour voir à l'intérieur."
+    );
+  } else {
+    terminal.printSlow(
+      "Vous êtes devant une porte, mais il fait trop sombre pour voir à l'intérieur."
+    );
+  }
+});
+
+terminal.registerCommand("/useLampe", () => {
+  const hasLamp = terminal.inventory.some((item) => item.includes("Lampe"));
+
+  if (hasLamp) {
+    setTimeout(triggerGlitchEffect, 1000);
+  } else {
+    terminal.printSlow("Vous n'avez pas de lampe dans votre inventaire.");
+  }
+});
+
+terminal.registerCommand("/useClé", () => {
+  const hasKey = terminal.inventory.some((item) => item.includes("Clé"));
+
+  if (hasKey) {
+    setTimeout(triggerGlitchEffect, 1000);
+  } else {
+    terminal.printSlow("Vous n'avez pas de clé dans votre inventaire.");
+  }
+});
+
+function triggerGlitchEffect() {
+  const body = document.body;
+  const blackScreen = document.getElementById("blackScreen");
+
+  // Ajouter l'effet de glitch
+  body.classList.add("glitch-effect");
+
+  // Après 1 seconde, enlever l'effet de glitch et afficher l'écran noir
+  setTimeout(() => {
+    body.classList.remove("glitch-effect");
+    blackScreen.classList.add("visible");
+  }, 1000);
+
+  setTimeout(() => {
+    window.location.href = "windows.html";
+  }, 4000);
+}
