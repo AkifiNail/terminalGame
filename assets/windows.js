@@ -97,3 +97,40 @@ function startGame() {
     }
   }, 900);
 }
+
+const phrases = [
+  "Bonjour ! Je suis Markus.",
+  "Ouais, je suis là pour t'aider.",
+  "Clique sur 'Ne pas ouvrir', c'est important !",
+  "Tu peux me faire confiance.",
+];
+
+// Délai entre chaque phrase (en millisecondes)
+const delayBetweenPhrases = 3000; // 3 secondes
+
+// Fonction pour afficher les phrases une par une
+function showPhrases() {
+  const markusContainer = document.getElementById("markus-container");
+  const markusContainerText = document.getElementById("markus-text-container");
+
+  const markusText = document.getElementById("markus-text");
+
+  // Afficher le conteneur après 3 secondes
+  setTimeout(() => {
+    markusContainer.style.display = "inline-block";
+
+    let index = 0;
+    // Afficher chaque phrase avec un délai
+    const interval = setInterval(() => {
+      if (index < phrases.length) {
+        markusContainerText.style.display = "block";
+        markusText.textContent = phrases[index];
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, delayBetweenPhrases);
+  }, 3000);
+}
+
+window.onload = showPhrases;

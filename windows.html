@@ -9,7 +9,7 @@
 </head>
 
 
-<video id="intro-video" autoplay>
+<video id="intro-video" autoplay muted>
     <source src="/assets/mp4/videoxp.mp4" type="video/mp4">
 </video>
 
@@ -33,7 +33,6 @@
 
 
 
-
 <div class="modal closed-window info" id="window">
     <div class="modal-header">
         <span class="modal-title">Jeu drole !</span>
@@ -46,6 +45,15 @@
     <div class="modal-footer">
         <button class="modal-button" onclick="startGame()">OK</button>
         <button class="modal-button">Annuler</button>
+    </div>
+</div>
+
+<div class="markus-container" id="markus-container">
+    <div class="markus">
+        <img src="/assets/images/markus.png" alt="markus">
+    </div>
+    <div class="speech-bubble" id="markus-text-container">
+        <p id="markus-text"></p>
     </div>
 </div>
 
