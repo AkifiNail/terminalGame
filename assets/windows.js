@@ -67,6 +67,7 @@ function closeModal(button) {
 // Fonction pour démarrer le jeu
 function startGame() {
   // Réinitialiser le jeu
+  markusContainer.style.display = "none";
   var window = document.getElementById("window");
   window.classList.remove("opened-window");
   window.classList.add("closed-window");
@@ -106,11 +107,10 @@ const phrases = [
 ];
 
 // Délai entre chaque phrase (en millisecondes)
-const delayBetweenPhrases = 3000; // 3 secondes
-
+const delayBetweenPhrases = 3500; // 3 secondes
+const markusContainer = document.getElementById("markus-container");
 // Fonction pour afficher les phrases une par une
 function showPhrases() {
-  const markusContainer = document.getElementById("markus-container");
   const markusContainerText = document.getElementById("markus-text-container");
 
   const markusText = document.getElementById("markus-text");
@@ -133,4 +133,10 @@ function showPhrases() {
   }, 3000);
 }
 
-window.onload = showPhrases;
+document.getElementById("ordi").addEventListener("click", function () {
+  showPhrases();
+  let notOpen = document.getElementById("not-open");
+  setInterval(() => {
+    notOpen.classList.remove("none");
+  }, 3000);
+});
