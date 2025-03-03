@@ -10,6 +10,8 @@ setTimeout(function () {
 let timeLeft = 30;
 let timerInterval;
 let modalCount = 0;
+let lives = 3;
+let modalInterval;
 
 function openWindow() {
   var window = document.getElementById("window");
@@ -59,9 +61,66 @@ function closeModal(button) {
 
   // Vérifier si toutes les modales sont fermées
   if (modalCount === 0 && timeLeft > 0 && timeLeft < 10) {
-    alert("Félicitations ! Vous avez gagné !");
     clearInterval(timerInterval);
+    clearInterval(modalInterval);
+    document.getElementById("modals-container").innerHTML = "";
+    showWinModal();
   }
+}
+
+// Fonction pour afficher la modale de victoire
+function showWinModal() {
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.classList.add("center");
+
+  modal.innerHTML = `
+        <div class="modal-header">
+            <span class="modal-title">Félicitations !</span>
+            <button class="close-button">X</button>
+        </div>
+        <div class="modal-content">
+            <p>Vous avez gagné !</p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button" onclick="restartGame()">Rejouer</button>
+        </div>
+    `;
+
+  document.getElementById("modals-container").appendChild(modal);
+}
+
+// Fonction pour afficher la modale de défaite
+function showLoseModal() {
+  lives--;
+  document.getElementById("lives").textContent = lives;
+  if (lives === 0) {
+    window.close();
+  }
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.classList.add("center");
+
+  modal.innerHTML = `
+        <div class="modal-header">
+            <span class="modal-title">Dommage !</span>
+            <button class="close-button">X</button>
+        </div>
+        <div class="modal-content">
+            <p>Vous avez perdu !</p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button" onclick="restartGame()">Rejouer</button>
+        </div>
+    `;
+
+  document.getElementById("modals-container").appendChild(modal);
+}
+
+// Fonction pour redémarrer le jeu
+function restartGame() {
+  document.getElementById("lives").textContent = lives;
+  startGame();
 }
 
 // Fonction pour démarrer le jeu
@@ -84,19 +143,20 @@ function startGame() {
     // Arrêter le jeu si le temps est écoulé
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
-      alert("Temps écoulé ! Vous avez perdu.");
       document.getElementById("modals-container").innerHTML = "";
+      showLoseModal();
+      
     }
   }, 1000);
 
   // Créer des modales d'erreur toutes les secondes
-  const modalInterval = setInterval(() => {
+   modalInterval = setInterval(() => {
     if (timeLeft > 0) {
       createErrorModal();
     } else {
       clearInterval(modalInterval);
     }
-  }, 900);
+  }, 1500);
 }
 
 const phrases = [

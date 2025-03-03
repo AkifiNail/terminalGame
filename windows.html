@@ -8,63 +8,57 @@
     <title>Escape the terminal</title>
 </head>
 
+<body>
+    <video id="intro-video" autoplay muted>
+        <source src="/assets/mp4/videoxp.mp4" type="video/mp4">
+    </video>
 
-<video id="intro-video" autoplay muted>
-    <source src="/assets/mp4/videoxp.mp4" type="video/mp4">
-</video>
-
-<div class="icon-container">
-    <div class="d-flex flex-col justify-center align-center container-hover-win" id="ordi">
-        <img class="icon" src="/assets/images/XPIcon.png" alt="bar">
-        <p class="icon-title">Ordinateur</p>
+    <div class="icon-container">
+        <div class="d-flex flex-col justify-center align-center container-hover-win" id="ordi">
+            <img class="icon" src="/assets/images/XPIcon.png" alt="bar">
+            <p class="icon-title">Ordinateur</p>
+        </div>
+        <div class="d-flex flex-col justify-center align-center container-hover-win none" onclick="openWindow()" id="not-open">
+            <img class="icon" src="/assets/images/fichier.png" alt="bar">
+            <p class="icon-title">Ne pas ouvrir</p>
+        </div>
+        <div class="d-flex flex-col justify-center align-center container-hover-win none">
+            <img class="icon" src="/assets/images/secu.png" alt="bar">
+            <p class="icon-title">Antivirus</p>
+        </div>
     </div>
-    <div class="d-flex flex-col justify-center align-center container-hover-win none" onclick="openWindow()"
-        id="not-open">
-        <img class="icon" src="/assets/images/fichier.png" alt="bar">
-        <p class="icon-title">Ne pas ouvrir</p>
+
+    <div class="timer none">Temps restant : <span id="time">30</span> secondes | Vies restantes : <span id="lives">3</span></div>
+    <div id="modals-container"></div>
+
+    <div class="modal closed-window info" id="window">
+        <div class="modal-header">
+            <span class="modal-title">Jeu drole !</span>
+            <button class="close-button">X</button>
+        </div>
+        <div class="modal-content">
+            <p>Vous avez 30 secondes pour supprimer toutes les fenetre qui apparaissent ! si vous n'y arrivez pas c la fin pour vous !</p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button" onclick="startGame()">OK</button>
+            <button class="modal-button">Annuler</button>
+        </div>
     </div>
-    <div class="d-flex flex-col justify-center align-center container-hover-win none">
-        <img class="icon" src="/assets/images/secu.png" alt="bar">
-        <p class="icon-title">Antivirus</p>
+
+    <div class="markus-container" id="markus-container">
+        <div class="markus">
+            <img src="/assets/images/markus.png" alt="markus">
+        </div>
+        <div class="speech-bubble" id="markus-text-container">
+            <p id="markus-text"></p>
+        </div>
     </div>
-</div>
 
-<div class="timer none">Temps restant : <span id="time">30</span> secondes</div>
-<div id="modals-container"></div>
+    <footer>
+        <img class="bar" src="/assets/images/barre_windows.png" alt="bar">
+    </footer>
 
-
-
-<div class="modal closed-window info" id="window">
-    <div class="modal-header">
-        <span class="modal-title">Jeu drole !</span>
-        <button class="close-button">X</button>
-    </div>
-    <div class="modal-content">
-        <p>Vous avez 30 secondes pour supprimer toutes les fenetre qui apparaissent ! si vous n'y arrivez pas c la fin
-            pour vous !</p>
-    </div>
-    <div class="modal-footer">
-        <button class="modal-button" onclick="startGame()">OK</button>
-        <button class="modal-button">Annuler</button>
-    </div>
-</div>
-
-<div class="markus-container" id="markus-container">
-    <div class="markus">
-        <img src="/assets/images/markus.png" alt="markus">
-    </div>
-    <div class="speech-bubble" id="markus-text-container">
-        <p id="markus-text"></p>
-    </div>
-</div>
-
-
-
-<footer>
-    <img class="bar" src="/assets/images/barre_windows.png" alt="bar">
-</footer>
-
-<script src="/assets/windows.js"></script>
+    <script src="/assets/windows.js"></script>
 </body>
 
 </html>
