@@ -20,17 +20,19 @@
             <img class="icon" src="/assets/images/XPIcon.png" alt="bar">
             <p class="icon-title">Ordinateur</p>
         </div>
-        <div class="d-flex flex-col justify-center align-center container-hover-win none" onclick="openWindow()" id="not-open">
+        <div class="d-flex flex-col justify-center align-center container-hover-win none" onclick="openWindow()"
+            id="not-open">
             <img class="icon" src="/assets/images/fichier.png" alt="bar">
             <p class="icon-title">Ne pas ouvrir</p>
         </div>
-        <div class="d-flex flex-col justify-center align-center container-hover-win none"  id="antivirus">
+        <div class="d-flex flex-col justify-center align-center container-hover-win none" id="antivirus-button">
             <img class="icon" src="/assets/images/secu.png" alt="bar">
             <p class="icon-title">Antivirus</p>
         </div>
     </div>
 
-    <div class="timer none">Temps restant : <span id="time">30</span> secondes | Vies restantes : <span id="lives">3</span></div>
+    <div class="timer none">Temps restant : <span id="time">30</span> secondes | Vies restantes : <span
+            id="lives">3</span></div>
     <div id="modals-container"></div>
 
     <div class="modal closed-window info" id="window">
@@ -39,7 +41,8 @@
             <button class="close-button">X</button>
         </div>
         <div class="modal-content">
-            <p>Vous avez 30 secondes pour supprimer toutes les fenetre qui apparaissent ! si vous n'y arrivez pas c la fin pour vous !</p>
+            <p>Vous avez 30 secondes pour supprimer toutes les fenetre qui apparaissent ! si vous n'y arrivez pas c la
+                fin pour vous !</p>
         </div>
         <div class="modal-footer">
             <button class="modal-button" onclick="startGame()">OK</button>
@@ -55,6 +58,8 @@
             <p id="markus-text"></p>
         </div>
     </div>
+
+    <div class="end-black-screen none"></div>
 
     <footer>
         <img class="bar" src="/assets/images/barre_windows.png" alt="bar">

@@ -13,6 +13,7 @@ let modalCount = 0;
 let lives = 3;
 let modalInterval;
 let canReplay = false;
+let antivirusClickCount = 0;
 
 function openWindow() {
   var window = document.getElementById("window");
@@ -90,11 +91,10 @@ function showWinModal() {
   document.getElementById("modals-container").appendChild(modal);
 
   setTimeout(() => {
-    modal.remove(); 
-    showMarkusWinMessage(); 
+    modal.remove();
+    showMarkusWinMessage();
   }, 3000);
 }
-
 
 function showMarkusWinMessage() {
   const markusContainerText = document.getElementById("markus-text-container");
@@ -116,16 +116,16 @@ function showMarkusWinMessage() {
   }, 2000);
 }
 
-
 function showTerminalMessage() {
-  const blackScreen = document.querySelector('.black-screen');
-  blackScreen.classList.remove('none'); // Affiche l'écran noir
+  const blackScreen = document.querySelector(".black-screen");
+  blackScreen.classList.remove("none"); // Affiche l'écran noir
 
-  const terminalTextContainer = document.createElement('div');
-  terminalTextContainer.classList.add('terminal-text');
+  const terminalTextContainer = document.createElement("div");
+  terminalTextContainer.classList.add("terminal-text");
   blackScreen.appendChild(terminalTextContainer);
 
-  const terminalMessage = stepOfMessage == 0 ?  "C'est julius ! Ne lui fais pas confiance, c'est la personne qui nous a enfermés ici." : "J'ai arrété le jeu vite clique sur l'antivirus ! ";
+  const terminalMessage =
+    "C'est julius ! Ne lui fais pas confiance, c'est la personne qui nous a enfermés ici.";
   let index = 0;
 
   const terminalInterval = setInterval(() => {
@@ -146,7 +146,6 @@ function showTerminalMessage() {
   }, 70);
 }
 
-
 function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
@@ -160,20 +159,17 @@ function showMarkusText(text, callback) {
   }
 }
 
-
 function triggerGlitchEffect() {
-  const blackScreen = document.querySelector('.black-screen');
-  blackScreen.classList.add('glitch-effect'); 
+  const blackScreen = document.querySelector(".black-screen");
+  blackScreen.classList.add("glitch-effect");
 
   setTimeout(() => {
-    blackScreen.classList.add('none'); 
+    blackScreen.classList.add("none");
     showMarkusText("Reprenons... Clique sur rejouer.");
-   
-    showReplayModal2(); 
+
+    showReplayModal2();
   }, 3000);
 }
-
-
 
 function showReplayModal() {
   const modal = document.createElement("div");
@@ -192,9 +188,7 @@ function showReplayModal() {
     `;
 
   document.getElementById("modals-container").appendChild(modal);
-} 
-
-
+}
 
 function showReplayModal2() {
   document.getElementById("modals-container").innerHTML = "";
@@ -220,8 +214,7 @@ function showReplayModal2() {
     document.getElementById("modals-container").innerHTML = "";
     startIntenseGame();
   });
-} 
-
+}
 
 // Fonction pour afficher la modale de défaite
 function showLoseModal() {
@@ -278,12 +271,11 @@ function startGame() {
       clearInterval(timerInterval);
       document.getElementById("modals-container").innerHTML = "";
       showLoseModal();
-      
     }
   }, 1000);
 
   // Créer des modales d'erreur toutes les secondes
-   modalInterval = setInterval(() => {
+  modalInterval = setInterval(() => {
     if (timeLeft > 0) {
       createErrorModal();
     } else {
@@ -377,20 +369,21 @@ function startIntenseGame() {
     document.getElementById("modals-container").innerHTML = "";
     clearInterval(modalInterval);
     clearInterval(timerInterval);
-    showTerminalMessage2()
+    showTerminalMessage2();
   }, 5000);
-} 
+}
 function showTerminalMessage2() {
-  const blackScreen = document.querySelector('.black-screen');
-  blackScreen.classList.remove('none');
-  blackScreen.classList.remove('glitch-effect'); // Assurez-vous que l'effet de glitch est désactivé
-  blackScreen.innerHTML = ''; // Nettoyer l'écran noir
+  const blackScreen = document.querySelector(".black-screen");
+  blackScreen.classList.remove("none");
+  blackScreen.classList.remove("glitch-effect"); // Assurez-vous que l'effet de glitch est désactivé
+  blackScreen.innerHTML = ""; // Nettoyer l'écran noir
 
-  const terminalTextContainer = document.createElement('div');
-  terminalTextContainer.classList.add('terminal-text');
+  const terminalTextContainer = document.createElement("div");
+  terminalTextContainer.classList.add("terminal-text");
   blackScreen.appendChild(terminalTextContainer);
 
-  const terminalMessage = "J'ai ajouté l'antivirus, exécute-le vite !";
+  const terminalMessage =
+    "Ok je t'ai aidé et j'ai ajouté l'antivirus, exécute-le vite !";
   let index = 0;
 
   const terminalInterval = setInterval(() => {
@@ -402,5 +395,150 @@ function showTerminalMessage2() {
         showAntivirusButton(); // Afficher le bouton pour exécuter l'antivirus
       }, 2000); // Attendre 2 secondes avant d'afficher le bouton
     }
-  }, 70); // Vitesse d'affichage du texte
+  }, 60); // Vitesse d'affichage du texte
+}
+
+function showAntivirusButton() {
+  let antivirusButton = document.getElementById("antivirus-button");
+  antivirusButton.classList.remove("none");
+
+  let lastMoveTime = 0;
+
+  document.addEventListener("mousemove", function (event) {
+    const now = Date.now();
+    if (now - lastMoveTime > 200) {
+      moveButtonIfClose(antivirusButton, event);
+      lastMoveTime = now;
+    }
+  });
+
+  // Ajouter un écouteur d'événements pour compter les clics
+  antivirusButton.addEventListener("click", function () {
+    antivirusClickCount++;
+
+    if (antivirusClickCount === 3) {
+      // Afficher la modale d'exécution de l'antivirus
+      showExecutionModal();
+      antivirusButton.classList.add("none");
+    }
+  });
+
+  // Faire apparaître Markus et afficher son message
+  showMarkusText("Je ne te laisserai pas faire !", () => {
+    // Désactiver le terminal après le message de Markus
+    disableTerminal();
+  });
+}
+
+function moveButtonIfClose(button, event) {
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+
+  const buttonRect = button.getBoundingClientRect();
+  const buttonX = buttonRect.left + buttonRect.width / 2;
+  const buttonY = buttonRect.top + buttonRect.height / 2;
+
+  const distance = Math.sqrt((mouseX - buttonX) ** 2 + (mouseY - buttonY) ** 2);
+
+  if (distance < 100) {
+    moveButtonRandomly(button);
+  }
+}
+
+function moveButtonRandomly(button) {
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
+  const buttonWidth = button.offsetWidth;
+  const buttonHeight = button.offsetHeight;
+
+  const newX = Math.random() * (windowWidth - buttonWidth);
+  const newY = Math.random() * (windowHeight - buttonHeight);
+
+  button.style.position = "absolute";
+  button.style.left = `${newX}px`;
+  button.style.top = `${newY}px`;
+}
+
+function showMarkusText(text, callback) {
+  const markusContainerText = document.getElementById("markus-text-container");
+  const markusText = document.getElementById("markus-text");
+
+  markusContainer.style.display = "inline-block"; // Affiche Markus
+  markusContainerText.style.display = "block";
+  markusText.textContent = text; // Texte de Markus
+
+  if (callback) {
+    setTimeout(callback, 3000); // Appeler le callback après 3 secondes
+  }
+}
+
+function disableTerminal() {
+  const blackScreen = document.querySelector(".black-screen");
+  blackScreen.classList.add("none"); // Masquer le terminal
+  blackScreen.innerHTML = ""; // Nettoyer le contenu du terminal
+
+  // Optionnel : Ajouter un effet ou une animation pour renforcer l'effet
+  blackScreen.style.transition = "opacity 1s";
+  blackScreen.style.opacity = "0";
+
+  setTimeout(() => {
+    blackScreen.style.display = "none"; // Masquer complètement le terminal
+  }, 1000);
+}
+
+function showExecutionModal() {
+  const modal = document.createElement("div");
+  modal.classList.add("modal", "center");
+
+  modal.innerHTML = `
+        <div class="modal-header">
+            <span class="modal-title">Exécution de l'antivirus</span>
+        </div>
+        <div class="modal-content">
+            <p>L'antivirus est en cours d'exécution...</p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-button" id="close-execution-modal">Fermer</button>
+        </div>
+    `;
+
+  document.getElementById("modals-container").appendChild(modal);
+
+  // Fermer la modale après un délai
+  setTimeout(() => {
+    modal.remove();
+    killMarkus(); // Faire "mourir" Markus
+  }, 3000);
+}
+
+function killMarkus() {
+  const markusContainerText = document.getElementById("markus-text-container");
+  const markusText = document.getElementById("markus-text");
+
+  // Afficher le message dramatique
+  showMarkusText("Oh non, je ne sais pas quoi...", () => {
+    // Faire disparaître Markus après le message
+    markusContainer.style.display = "none";
+    markusContainerText.style.display = "none";
+  });
+
+  let endScreen = document.querySelector(".end-black-screen");
+
+  setTimeout(() => {
+    endScreen.classList.remove("none");
+  }, 2000);
+}
+
+function showMarkusText(text, callback) {
+  const markusContainerText = document.getElementById("markus-text-container");
+  const markusText = document.getElementById("markus-text");
+
+  markusContainer.style.display = "inline-block"; // Affiche Markus
+  markusContainerText.style.display = "block";
+  markusText.textContent = text; // Texte de Markus
+
+  if (callback) {
+    setTimeout(callback, 3000); // Appeler le callback après 3 secondes
+  }
 }
