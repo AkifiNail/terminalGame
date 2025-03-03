@@ -267,3 +267,96 @@ footer{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+
+.black-screen{
+    position: fixed;
+    top: 100px;
+    left: 150px;
+    width: 500px;
+    height: 100px;
+    background-color: black;
+    z-index: 1000;
+    animation: anime-black-screen 1s forwards;
+    color: #33ff33;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    padding: 10px;      
+}
+
+.terminal-text {
+    white-space: pre-wrap;
+  }
+
+@keyframes anime-black-screen {
+    0% {
+       height: 0px;
+    }
+    100% {
+        height: 200px;
+    }
+    
+}
+
+
+@keyframes glitch {
+    0% { transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    10% { transform: translate(-5px, 5px); clip-path: polygon(0 10%, 100% 0, 90% 100%, 0 90%); }
+    20% { transform: translate(5px, -5px); clip-path: polygon(0 0, 90% 10%, 100% 90%, 10% 100%); }
+    30% { transform: translate(-3px, 3px); clip-path: polygon(10% 0, 100% 10%, 90% 100%, 0 90%); }
+    40% { transform: translate(3px, -3px); clip-path: polygon(0 10%, 90% 0, 100% 90%, 10% 100%); }
+    50% { transform: translate(-3px, 3px); clip-path: polygon(10% 0, 100% 10%, 90% 100%, 0 90%); }
+    60% { transform: translate(3px, -3px); clip-path: polygon(0 10%, 90% 0, 100% 90%, 10% 100%); }
+    70% { transform: translate(-5px, 5px); clip-path: polygon(10% 0, 100% 10%, 90% 100%, 0 90%); }
+    80% { transform: translate(5px, -5px); clip-path: polygon(0 10%, 90% 0, 100% 90%, 10% 100%); }
+    90% { transform: translate(-3px, 3px); clip-path: polygon(10% 0, 100% 10%, 90% 100%, 0 90%); }
+    100% { transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+/* Effet de décalage de couleurs (RGB shift) */
+@keyframes colorShift {
+    0% { filter: hue-rotate(0deg) contrast(1.2) brightness(1.2); }
+    50% { filter: hue-rotate(180deg) contrast(1.5) brightness(1.3); }
+    100% { filter: hue-rotate(0deg) contrast(1.2) brightness(1.2); }
+}
+
+/* Effet de bruit statique */
+@keyframes noise {
+    0%, 100% { opacity: 0.1; transform: translate(0, 0); }
+    50% { opacity: 0.3; transform: translate(2px, -2px); }
+}
+
+/* Appliquer l'effet glitch avec plusieurs couches */
+.glitch-effect {
+    animation: glitch 0.3s infinite, colorShift 0.8s infinite;
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.8), -2px -2px 5px rgba(0, 255, 255, 0.8);
+}
+
+/* Couches de glitch pour l'effet RGB */
+.glitch-effect::before,
+.glitch-effect::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: -1;
+}
+
+.glitch-effect::before {
+    animation: glitch 0.2s infinite;
+    color: #ff0000;
+    transform: translate(-3px, 0);
+}
+
+.glitch-effect::after {
+    animation: glitch 0.4s infinite;
+    color: #00ffff;
+    transform: translate(3px, 0);
+}
