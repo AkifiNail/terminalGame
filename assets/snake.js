@@ -83,18 +83,18 @@ class SnakeGame {
       this.score++;
       this.food = this.createFood();
       if (this.score === 1) {
-        this.terminal.snakeCompleted = true; // Marque le jeu comme terminé dans le terminal
-        clearInterval(this.gameInterval); // Arrête la boucle de jeu
-        this.gameOver = true; // Met le jeu en état "Game Over"
+        this.terminal.snakeCompleted = true; 
+        clearInterval(this.gameInterval); 
+        this.gameOver = true; 
         this.terminal.addToInventory(
           "Clé decryptage - '/useClé' - pour l'utiliser"
         );
         this.terminal.addToInventory("Lampe - '/useLampe' - pour l'utiliser");
 
-        // Afficher un message de victoire sur le canvas
-        this.context.fillStyle = "gold"; // Couleur du texte
-        this.context.font = "10px 'Courier New', monospace"; // Police et taille du texte
-        this.context.textAlign = "center"; // Centrer le texte horizontalement
+        
+        this.context.fillStyle = "gold"; 
+        this.context.font = "10px 'Courier New', monospace"; 
+        this.context.textAlign = "center"; 
         this.context.fillText(
           "Vous avez récupéré une clé de décryptage !",
           this.canvas.width / 2,
@@ -103,7 +103,7 @@ class SnakeGame {
 
         let scoreSnake2 = document.getElementById("score");
 
-        // Nettoyer le canvas et revenir au terminal après un délai
+        
         setTimeout(() => {
           scoreSnake2.classList.remove("visible");
           this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);

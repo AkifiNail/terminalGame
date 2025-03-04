@@ -5,7 +5,7 @@ setTimeout(function () {
   }
 }, 2000);
 
-// Variables globales
+
 let timeLeft = 30;
 let timerInterval;
 let modalCount = 0;
@@ -24,18 +24,18 @@ function openWindow() {
   window.classList.remove("closed-window");
 }
 
-// Fonction pour créer une modale d'erreur
+
 function createErrorModal() {
   const modal = document.createElement("div");
   modal.classList.add("modal");
 
-  // Position aléatoire à l'écran
+  
   const x = Math.floor(Math.random() * (window.innerWidth - 300));
   const y = Math.floor(Math.random() * (window.innerHeight - 200));
   modal.style.left = `${x}px`;
   modal.style.top = `${y}px`;
 
-  // Contenu de la modale
+  
   modal.innerHTML = `
         <div class="modal-header">
             <span class="modal-title">Erreur</span>
@@ -49,18 +49,18 @@ function createErrorModal() {
         </div>
     `;
 
-  // Ajouter la modale au conteneur
+  
   document.getElementById("modals-container").appendChild(modal);
   modalCount++;
 }
 
-// Fonction pour fermer une modale
+
 function closeModal(button) {
   const modal = button.closest(".modal");
   modal.remove();
   modalCount--;
 
-  // Vérifier si toutes les modales sont fermées
+  
   if (modalCount === 0 && timeLeft > 0 && timeLeft < 10) {
     clearInterval(timerInterval);
     clearInterval(modalInterval);
@@ -69,7 +69,7 @@ function closeModal(button) {
   }
 }
 
-// Fonction pour afficher la modale de victoire
+
 function showWinModal() {
   const modal = document.createElement("div");
   modal.classList.add("modal");
@@ -99,25 +99,25 @@ function showMarkusWinMessage() {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; // Affiche Markus
+  markusContainer.style.display = "inline-block"; 
   markusContainerText.style.display = "block";
-  markusText.textContent = "Wow tu es fort"; // Premier message
+  markusText.textContent = "Wow tu es fort"; 
 
   setTimeout(() => {
-    markusText.textContent = "Ok j'ai compris clique sur rejouer s'il te plaît"; // Deuxième message
+    markusText.textContent = "Ok j'ai compris clique sur rejouer s'il te plaît"; 
 
     setTimeout(() => {
-      showReplayModal(); // Affiche la modale pour rejouer
+      showReplayModal(); 
       setTimeout(() => {
-        showTerminalMessage(); // Affiche le message du terminal
-      }, 2500); // Attends un peu après la modale avant de lancer le terminal
+        showTerminalMessage(); 
+      }, 2500); 
     }, 2500);
   }, 2000);
 }
 
 function showTerminalMessage() {
   const blackScreen = document.querySelector(".black-screen");
-  blackScreen.classList.remove("none"); // Affiche l'écran noir
+  blackScreen.classList.remove("none"); 
 
   const terminalTextContainer = document.createElement("div");
   terminalTextContainer.classList.add("terminal-text");
@@ -149,9 +149,9 @@ function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; // Affiche Markus
+  markusContainer.style.display = "inline-block"; 
   markusContainerText.style.display = "block";
-  markusText.textContent = text; // Texte de Markus
+  markusText.textContent = text; 
 
   if (callback) {
     setTimeout(callback, 3000);
@@ -215,7 +215,7 @@ function showReplayModal2() {
   });
 }
 
-// Fonction pour afficher la modale de défaite
+
 function showLoseModal() {
   lives--;
   document.getElementById("lives").textContent = lives;
@@ -242,15 +242,15 @@ function showLoseModal() {
   document.getElementById("modals-container").appendChild(modal);
 }
 
-// Fonction pour redémarrer le jeu
+
 function restartGame() {
   document.getElementById("lives").textContent = lives;
   startGame();
 }
 
-// Fonction pour démarrer le jeu
+
 function startGame() {
-  // Réinitialiser le jeu
+  
   markusContainer.style.display = "none";
   var window = document.getElementById("window");
   window.classList.remove("opened-window");
@@ -260,12 +260,12 @@ function startGame() {
   document.getElementById("modals-container").innerHTML = "";
   document.getElementById("time").textContent = timeLeft;
 
-  // Démarrer le timer
+  
   timerInterval = setInterval(() => {
     timeLeft--;
     document.getElementById("time").textContent = timeLeft;
 
-    // Arrêter le jeu si le temps est écoulé
+    
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       document.getElementById("modals-container").innerHTML = "";
@@ -273,7 +273,7 @@ function startGame() {
     }
   }, 1000);
 
-  // Créer des modales d'erreur toutes les secondes
+  
   modalInterval = setInterval(() => {
     if (timeLeft > 0) {
       createErrorModal();
@@ -290,21 +290,21 @@ const phrases = [
   "Tu peux me faire confiance.",
 ];
 
-// Délai entre chaque phrase (en millisecondes)
-const delayBetweenPhrases = 3500; // 3 secondes
+
+const delayBetweenPhrases = 3500; 
 const markusContainer = document.getElementById("markus-container");
-// Fonction pour afficher les phrases une par une
+
 function showPhrases() {
   const markusContainerText = document.getElementById("markus-text-container");
 
   const markusText = document.getElementById("markus-text");
 
-  // Afficher le conteneur après 3 secondes
+  
   setTimeout(() => {
     markusContainer.style.display = "inline-block";
 
     let index = 0;
-    // Afficher chaque phrase avec un délai
+    
     const interval = setInterval(() => {
       if (index < phrases.length) {
         markusContainerText.style.display = "block";
@@ -326,7 +326,7 @@ document.getElementById("ordi").addEventListener("click", function () {
 });
 
 function startIntenseGame() {
-  // Réinitialiser le jeu
+  
   markusContainer.style.display = "none";
   var window = document.getElementById("window");
   window.classList.remove("opened-window");
@@ -336,17 +336,17 @@ function startIntenseGame() {
   document.getElementById("modals-container").innerHTML = "";
   document.getElementById("time").textContent = timeLeft;
 
-  // Créer 100 modales d'erreur d'un coup
+  
   for (let i = 0; i < 100; i++) {
     createErrorModal();
   }
 
-  // Démarrer le timer
+  
   timerInterval = setInterval(() => {
     timeLeft--;
     document.getElementById("time").textContent = timeLeft;
 
-    // Arrêter le jeu si le temps est écoulé
+    
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       document.getElementById("modals-container").innerHTML = "";
@@ -354,7 +354,7 @@ function startIntenseGame() {
     }
   }, 1000);
 
-  // Créer des modales d'erreur toutes les 50 millisecondes
+  
   modalInterval = setInterval(() => {
     if (timeLeft > 0) {
       createErrorModal();
@@ -363,7 +363,7 @@ function startIntenseGame() {
     }
   }, 50);
 
-  // Nettoyer les modales après 2 secondes
+  
   setTimeout(() => {
     document.getElementById("modals-container").innerHTML = "";
     clearInterval(modalInterval);
@@ -374,8 +374,8 @@ function startIntenseGame() {
 function showTerminalMessage2() {
   const blackScreen = document.querySelector(".black-screen");
   blackScreen.classList.remove("none");
-  blackScreen.classList.remove("glitch-effect"); // Assurez-vous que l'effet de glitch est désactivé
-  blackScreen.innerHTML = ""; // Nettoyer l'écran noir
+  blackScreen.classList.remove("glitch-effect"); 
+  blackScreen.innerHTML = ""; 
 
   const terminalTextContainer = document.createElement("div");
   terminalTextContainer.classList.add("terminal-text");
@@ -391,10 +391,10 @@ function showTerminalMessage2() {
     if (index === terminalMessage.length) {
       clearInterval(terminalInterval);
       setTimeout(() => {
-        showAntivirusButton(); // Afficher le bouton pour exécuter l'antivirus
-      }, 2000); // Attendre 2 secondes avant d'afficher le bouton
+        showAntivirusButton(); 
+      }, 2000); 
     }
-  }, 60); // Vitesse d'affichage du texte
+  }, 60); 
 }
 
 function showAntivirusButton() {
@@ -411,20 +411,20 @@ function showAntivirusButton() {
     }
   });
 
-  // Ajouter un écouteur d'événements pour compter les clics
+  
   antivirusButton.addEventListener("click", function () {
     antivirusClickCount++;
 
     if (antivirusClickCount === 2) {
-      // Afficher la modale d'exécution de l'antivirus
+      
       showExecutionModal();
       antivirusButton.classList.add("none");
     }
   });
 
-  // Faire apparaître Markus et afficher son message
+  
   showMarkusText("Je ne te laisserai pas faire !", () => {
-    // Désactiver le terminal après le message de Markus
+    
     disableTerminal();
   });
 }
@@ -463,26 +463,26 @@ function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; // Affiche Markus
+  markusContainer.style.display = "inline-block"; 
   markusContainerText.style.display = "block";
-  markusText.textContent = text; // Texte de Markus
+  markusText.textContent = text; 
 
   if (callback) {
-    setTimeout(callback, 3000); // Appeler le callback après 3 secondes
+    setTimeout(callback, 3000); 
   }
 }
 
 function disableTerminal() {
   const blackScreen = document.querySelector(".black-screen");
-  blackScreen.classList.add("none"); // Masquer le terminal
-  blackScreen.innerHTML = ""; // Nettoyer le contenu du terminal
+  blackScreen.classList.add("none"); 
+  blackScreen.innerHTML = ""; 
 
-  // Optionnel : Ajouter un effet ou une animation pour renforcer l'effet
+  
   blackScreen.style.transition = "opacity 1s";
   blackScreen.style.opacity = "0";
 
   setTimeout(() => {
-    blackScreen.style.display = "none"; // Masquer complètement le terminal
+    blackScreen.style.display = "none"; 
   }, 1000);
 }
 
@@ -504,10 +504,10 @@ function showExecutionModal() {
 
   document.getElementById("modals-container").appendChild(modal);
 
-  // Fermer la modale après un délai
+  
   setTimeout(() => {
     modal.remove();
-    killMarkus(); // Faire "mourir" Markus
+    killMarkus(); 
   }, 3000);
 }
 
@@ -515,9 +515,9 @@ function killMarkus() {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  // Afficher le message dramatique
+  
   showMarkusText("Oh non, je ne sais pas quoi...", () => {
-    // Faire disparaître Markus après le message
+    
     markusContainer.style.display = "none";
     markusContainerText.style.display = "none";
   });
@@ -537,11 +537,11 @@ function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; // Affiche Markus
+  markusContainer.style.display = "inline-block"; 
   markusContainerText.style.display = "block";
-  markusText.textContent = text; // Texte de Markus
+  markusText.textContent = text; 
 
   if (callback) {
-    setTimeout(callback, 3000); // Appeler le callback après 3 secondes
+    setTimeout(callback, 3000); 
   }
 }

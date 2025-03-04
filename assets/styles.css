@@ -1,4 +1,4 @@
-/* Appliquer l'effet CRT sur toute la page */
+
 body {
     background-color: black;
     display: flex;
@@ -9,10 +9,10 @@ body {
     font-family: 'Courier New', monospace;
     overflow: hidden;
     position: relative;
-    /* Pour positionner l'effet CRT */
+   
 }
 
-/* Effet CRT sur toute la page */
+
 body::before {
     content: "";
     position: absolute;
@@ -22,13 +22,13 @@ body::before {
     height: 100%;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
     z-index: 1;
-    /* Placer derrière le contenu */
+   
     pointer-events: none;
-    /* Ne pas bloquer les interactions */
+   
     animation: flicker 0.15s infinite;
 }
 
-/* Effet de balayage sur toute la page */
+
 body::after {
     content: "";
     position: absolute;
@@ -39,12 +39,12 @@ body::after {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 50%);
     animation: scan 5s linear infinite;
     z-index: 1;
-    /* Placer derrière le contenu */
+   
     pointer-events: none;
-    /* Ne pas bloquer les interactions */
+   
 }
 
-/* Animation de scintillement */
+
 @keyframes flicker {
     0% {
         opacity: 0.5;
@@ -59,7 +59,7 @@ body::after {
     }
 }
 
-/* Animation de balayage */
+
 @keyframes scan {
     0% {
         top: -100%;
@@ -70,19 +70,19 @@ body::after {
     }
 }
 
-/* Styles pour le terminal */
+
 #terminal-container {
     width: 80%;
     max-width: 800px;
     background: transparent;
-    /* Fond transparent pour intégrer l'effet CRT */
+   
     color: #33ff33;
     padding: 15px;
     border-radius: 5px;
     overflow: hidden;
     position: relative;
     z-index: 2;
-    /* Placer au-dessus de l'effet CRT */
+   
 }
 
 #terminal {
@@ -92,14 +92,14 @@ body::after {
     font-size: 16px;
     position: relative;
     z-index: 2;
-    /* Placer au-dessus de l'effet CRT */
+   
 }
 
 #input-line {
     display: flex;
     position: relative;
     z-index: 2;
-    /* Placer au-dessus de l'effet CRT */
+   
 }
 
 #prompt {
@@ -228,7 +228,7 @@ canvas {
     }
 }
 
-/* Effet de décalage de couleurs (red et blue shift) */
+
 @keyframes colorShift {
     0% {
         filter: hue-rotate(0deg);
@@ -243,13 +243,13 @@ canvas {
     }
 }
 
-/* Appliquer l'effet de glitch hardcore */
+
 .glitch-effect {
     animation: glitch 0.5s infinite, colorShift 1s infinite;
     position: relative;
 }
 
-/* Créer des "couches" de glitch pour un effet plus complexe */
+
 .glitch-effect::before,
 .glitch-effect::after {
     content: "";
@@ -275,7 +275,7 @@ canvas {
     transform: translate(5px, 0);
 }
 
-/* Écran noir */
+
 .black-screen {
     background-color: black;
     position: fixed;
@@ -336,19 +336,19 @@ canvas {
     color: #33ff33;
     font-size: 24px;
     margin-top: 20px;
-    font-family: 'Courier New', Courier, monospace; /* Police de type terminal */
-    animation: blink 1s steps(2, start) infinite; /* Effet de clignotement */
+    font-family: 'Courier New', Courier, monospace;
+    animation: blink 1s steps(2, start) infinite;
 }
 
 .progress-bar {
     width: 600px;
     height: 20px;
-    background-color: #222; /* Fond plus sombre */
+    background-color: #222;
     border-radius: 10px;
     overflow: hidden;
     margin-top: 20px;
-    border: 1px solid #33ff33; /* Bordure verte */
-    box-shadow: 0 0 10px #33ff33; /* Lueur verte */
+    border: 1px solid #33ff33;
+    box-shadow: 0 0 10px #33ff33;
 }
 
 .progress {
@@ -366,7 +366,7 @@ canvas {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Effet de scintillement */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: shine 1.5s infinite;
 }
 
@@ -411,5 +411,5 @@ canvas {
 }
 
 .step1, .starter {
-    transition: opacity 1s ease; /* Transition d'opacité de 1 seconde */
+    transition: opacity 1s ease;
 }

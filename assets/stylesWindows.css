@@ -207,7 +207,7 @@ footer{
 .markus-container {
     position: absolute;
     display: none;
-    /* Caché par défaut */
+   
     top: 100px;
     right: 300px;
 }
@@ -314,20 +314,20 @@ footer{
     100% { transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 }
 
-/* Effet de décalage de couleurs (RGB shift) */
+
 @keyframes colorShift {
     0% { filter: hue-rotate(0deg) contrast(1.2) brightness(1.2); }
     50% { filter: hue-rotate(180deg) contrast(1.5) brightness(1.3); }
     100% { filter: hue-rotate(0deg) contrast(1.2) brightness(1.2); }
 }
 
-/* Effet de bruit statique */
+
 @keyframes noise {
     0%, 100% { opacity: 0.1; transform: translate(0, 0); }
     50% { opacity: 0.3; transform: translate(2px, -2px); }
 }
 
-/* Appliquer l'effet glitch avec plusieurs couches */
+
 .glitch-effect {
     animation: glitch 0.3s infinite, colorShift 0.8s infinite;
     position: relative;
@@ -336,7 +336,7 @@ footer{
     text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.8), -2px -2px 5px rgba(0, 255, 255, 0.8);
 }
 
-/* Couches de glitch pour l'effet RGB */
+
 .glitch-effect::before,
 .glitch-effect::after {
     content: attr(data-text);
