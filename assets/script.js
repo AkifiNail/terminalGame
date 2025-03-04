@@ -14,11 +14,41 @@ class Terminal {
     this.inventory = [];
     this.isInputDisabled = false;
 
+    this.backgroundAudio = new Audio("./assets/mp3/back.mp3");
+    this.snakeSound = new Audio("./assets/mp3/bip.mp3");
+    this.commandAudio = new Audio("./assets/mp3/enter.mp3");
+    this.backgroundAudio.loop = true;
+    this.backgroundAudio.volume = 0.15;
+    // this.snakeSound.volume = 0.15;
+
     this.init();
   }
 
   init() {
+    const startAudioOnInteraction = () => {
+      if (this.backgroundAudio.paused) {
+        this.backgroundAudio
+          .play()
+          .then(() => {
+            console.log("Lecture de l'audio autorisée");
+          })
+          .catch((error) => {
+            console.log("Erreur de lecture de l'audio :", error);
+          });
+      }
+      document.removeEventListener("click", startAudioOnInteraction);
+      document.removeEventListener("keydown", startAudioOnInteraction);
+    };
+
+    document.addEventListener("click", startAudioOnInteraction);
+    document.addEventListener("keydown", startAudioOnInteraction);
     this.input.addEventListener("keydown", (event) => this.handleInput(event));
+  }
+
+  playBackgroundAudio() {
+    this.backgroundAudio.play().catch((error) => {
+      console.log(error);
+    });
   }
 
   handleInput(event) {
@@ -30,6 +60,9 @@ class Terminal {
       this.historyIndex = this.history.length;
       this.executeCommand(command);
       this.input.value = "";
+      this.commandAudio.play().catch((error) => {
+        console.log("Erreur de lecture de l'audio de la commande :", error);
+      });
     } else if (event.key === "ArrowUp" && this.history.length > 0) {
       this.historyIndex = Math.max(0, this.historyIndex - 1);
       this.input.value = this.history[this.historyIndex];
@@ -96,7 +129,7 @@ class Terminal {
     if (this.awaitingHelpResponse) {
       if (command.toLowerCase() === "ok") {
         this.printSlow(
-          "Merci ! Ensemble, nous allons trouver ce code !",
+          "Merci ! Ensemble, nous allons trouver cette clé !",
           () => {
             this.awaitingHelpResponse = false;
             this.askName();
@@ -272,6 +305,7 @@ terminal.registerCommand("snake", () => {
 
   terminal.terminal.innerHTML = "";
   terminal.printSlow("Lancement du jeu Snake...");
+  // this.snakeSound.play();
 
   terminal.disableInput();
 
@@ -348,10 +382,8 @@ function triggerGlitchEffect() {
   const body = document.body;
   const blackScreen = document.getElementById("blackScreen");
 
-  
   body.classList.add("glitch-effect");
 
-  
   setTimeout(() => {
     body.classList.remove("glitch-effect");
     blackScreen.classList.add("visible");
@@ -362,32 +394,26 @@ function triggerGlitchEffect() {
   }, 4000);
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(function () {
+    var step0 = document.querySelector(".step0");
+    var step1 = document.querySelector(".step1");
+    var starterDiv = document.querySelector(".starter");
 
-document.addEventListener("DOMContentLoaded", function() {
-  setTimeout(function() {
-      var step0 = document.querySelector(".step0");
-      var step1 = document.querySelector(".step1");
-      var starterDiv = document.querySelector('.starter');
+    step0.style.display = "none";
 
-      
-      step0.style.display = "none";
+    step1.style.display = "block";
 
-      
-      step1.style.display = "block";
+    setTimeout(function () {
+      step1.style.opacity = "0";
+      setTimeout(function () {
+        step1.style.display = "none";
 
-      
-      setTimeout(function() {
-          step1.style.opacity = "0"; 
-          setTimeout(function() {
-              step1.style.display = "none"; 
-
-              
-              starterDiv.style.opacity = "0"; 
-              setTimeout(function() {
-                  starterDiv.style.display = "none"; 
-              }, 1000); 
-          }, 1000); 
-      }, 2000); 
-
-  }, 3500); 
+        starterDiv.style.opacity = "0";
+        setTimeout(function () {
+          starterDiv.style.display = "none";
+        }, 1000);
+      }, 1000);
+    }, 2000);
+  }, 3500);
 });

@@ -82,19 +82,18 @@ class SnakeGame {
     if (head.x === this.food.x && head.y === this.food.y) {
       this.score++;
       this.food = this.createFood();
-      if (this.score === 1) {
-        this.terminal.snakeCompleted = true; 
-        clearInterval(this.gameInterval); 
-        this.gameOver = true; 
+      if (this.score === 10) {
+        this.terminal.snakeCompleted = true;
+        clearInterval(this.gameInterval);
+        this.gameOver = true;
         this.terminal.addToInventory(
           "Clé decryptage - '/useClé' - pour l'utiliser"
         );
         this.terminal.addToInventory("Lampe - '/useLampe' - pour l'utiliser");
 
-        
-        this.context.fillStyle = "gold"; 
-        this.context.font = "10px 'Courier New', monospace"; 
-        this.context.textAlign = "center"; 
+        this.context.fillStyle = "gold";
+        this.context.font = "10px 'Courier New', monospace";
+        this.context.textAlign = "center";
         this.context.fillText(
           "Vous avez récupéré une clé de décryptage !",
           this.canvas.width / 2,
@@ -103,7 +102,6 @@ class SnakeGame {
 
         let scoreSnake2 = document.getElementById("score");
 
-        
         setTimeout(() => {
           scoreSnake2.classList.remove("visible");
           this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
