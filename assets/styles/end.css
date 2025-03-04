@@ -9,14 +9,14 @@ body {
     overflow: hidden;
 }
 
-/* Conteneur principal */
+
 .container {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
 }
 
-/* Style du titre */
+
 #typing-title {
     font-size: 2em;
     white-space: nowrap;
@@ -25,7 +25,7 @@ body {
     animation: typing 4s steps(40, end) forwards;
 }
 
-/* Style du texte */
+
 #typing-text {
     font-size: 1.2em;
     white-space: nowrap;
@@ -35,7 +35,7 @@ body {
     animation: typing 3s steps(30, end) 4s forwards, fadeIn 0.5s 7s forwards;
 }
 
-/* Conteneur des boutons */
+
 .choices {
     display: flex;
     justify-content: center;
@@ -44,7 +44,7 @@ body {
     animation: fadeIn 1s 7s forwards;
 }
 
-/* Style des boutons */
+
 .choices button {
     background-color: black;
     color: limegreen;
@@ -61,7 +61,7 @@ body {
     color: black;
 }
 
-/* Animation de frappe */
+
 @keyframes typing {
     from {
         width: 0;
@@ -72,7 +72,7 @@ body {
     }
 }
 
-/* Animation d'apparition */
+
 @keyframes fadeIn {
     from {
         opacity: 0;

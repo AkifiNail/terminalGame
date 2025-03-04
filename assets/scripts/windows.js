@@ -5,7 +5,6 @@ setTimeout(function () {
   }
 }, 2000);
 
-
 let timeLeft = 30;
 let timerInterval;
 let modalCount = 0;
@@ -24,18 +23,15 @@ function openWindow() {
   window.classList.remove("closed-window");
 }
 
-
 function createErrorModal() {
   const modal = document.createElement("div");
   modal.classList.add("modal");
 
-  
   const x = Math.floor(Math.random() * (window.innerWidth - 300));
   const y = Math.floor(Math.random() * (window.innerHeight - 200));
   modal.style.left = `${x}px`;
   modal.style.top = `${y}px`;
 
-  
   modal.innerHTML = `
         <div class="modal-header">
             <span class="modal-title">Erreur</span>
@@ -49,18 +45,18 @@ function createErrorModal() {
         </div>
     `;
 
-  
   document.getElementById("modals-container").appendChild(modal);
   modalCount++;
-}
 
+  // const popupSound = document.getElementById("popup-sound");
+  // popupSound.play();
+}
 
 function closeModal(button) {
   const modal = button.closest(".modal");
   modal.remove();
   modalCount--;
 
-  
   if (modalCount === 0 && timeLeft > 0 && timeLeft < 10) {
     clearInterval(timerInterval);
     clearInterval(modalInterval);
@@ -68,7 +64,6 @@ function closeModal(button) {
     showWinModal();
   }
 }
-
 
 function showWinModal() {
   const modal = document.createElement("div");
@@ -99,25 +94,25 @@ function showMarkusWinMessage() {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; 
+  markusContainer.style.display = "inline-block";
   markusContainerText.style.display = "block";
-  markusText.textContent = "Wow tu es fort"; 
+  markusText.textContent = "Wow tu es fort";
 
   setTimeout(() => {
-    markusText.textContent = "Ok j'ai compris clique sur rejouer s'il te plaît"; 
+    markusText.textContent = "Ok j'ai compris clique sur rejouer s'il te plaît";
 
     setTimeout(() => {
-      showReplayModal(); 
+      showReplayModal();
       setTimeout(() => {
-        showTerminalMessage(); 
-      }, 2500); 
+        showTerminalMessage();
+      }, 2500);
     }, 2500);
   }, 2000);
 }
 
 function showTerminalMessage() {
   const blackScreen = document.querySelector(".black-screen");
-  blackScreen.classList.remove("none"); 
+  blackScreen.classList.remove("none");
 
   const terminalTextContainer = document.createElement("div");
   terminalTextContainer.classList.add("terminal-text");
@@ -149,9 +144,9 @@ function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; 
+  markusContainer.style.display = "inline-block";
   markusContainerText.style.display = "block";
-  markusText.textContent = text; 
+  markusText.textContent = text;
 
   if (callback) {
     setTimeout(callback, 3000);
@@ -215,7 +210,6 @@ function showReplayModal2() {
   });
 }
 
-
 function showLoseModal() {
   lives--;
   document.getElementById("lives").textContent = lives;
@@ -242,15 +236,12 @@ function showLoseModal() {
   document.getElementById("modals-container").appendChild(modal);
 }
 
-
 function restartGame() {
   document.getElementById("lives").textContent = lives;
   startGame();
 }
 
-
 function startGame() {
-  
   markusContainer.style.display = "none";
   var window = document.getElementById("window");
   window.classList.remove("opened-window");
@@ -260,12 +251,10 @@ function startGame() {
   document.getElementById("modals-container").innerHTML = "";
   document.getElementById("time").textContent = timeLeft;
 
-  
   timerInterval = setInterval(() => {
     timeLeft--;
     document.getElementById("time").textContent = timeLeft;
 
-    
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       document.getElementById("modals-container").innerHTML = "";
@@ -273,7 +262,6 @@ function startGame() {
     }
   }, 1000);
 
-  
   modalInterval = setInterval(() => {
     if (timeLeft > 0) {
       createErrorModal();
@@ -290,8 +278,7 @@ const phrases = [
   "Tu peux me faire confiance.",
 ];
 
-
-const delayBetweenPhrases = 3500; 
+const delayBetweenPhrases = 3500;
 const markusContainer = document.getElementById("markus-container");
 
 function showPhrases() {
@@ -299,12 +286,11 @@ function showPhrases() {
 
   const markusText = document.getElementById("markus-text");
 
-  
   setTimeout(() => {
     markusContainer.style.display = "inline-block";
 
     let index = 0;
-    
+
     const interval = setInterval(() => {
       if (index < phrases.length) {
         markusContainerText.style.display = "block";
@@ -326,7 +312,6 @@ document.getElementById("ordi").addEventListener("click", function () {
 });
 
 function startIntenseGame() {
-  
   markusContainer.style.display = "none";
   var window = document.getElementById("window");
   window.classList.remove("opened-window");
@@ -336,17 +321,14 @@ function startIntenseGame() {
   document.getElementById("modals-container").innerHTML = "";
   document.getElementById("time").textContent = timeLeft;
 
-  
   for (let i = 0; i < 100; i++) {
     createErrorModal();
   }
 
-  
   timerInterval = setInterval(() => {
     timeLeft--;
     document.getElementById("time").textContent = timeLeft;
 
-    
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       document.getElementById("modals-container").innerHTML = "";
@@ -354,7 +336,6 @@ function startIntenseGame() {
     }
   }, 1000);
 
-  
   modalInterval = setInterval(() => {
     if (timeLeft > 0) {
       createErrorModal();
@@ -363,7 +344,6 @@ function startIntenseGame() {
     }
   }, 50);
 
-  
   setTimeout(() => {
     document.getElementById("modals-container").innerHTML = "";
     clearInterval(modalInterval);
@@ -374,8 +354,8 @@ function startIntenseGame() {
 function showTerminalMessage2() {
   const blackScreen = document.querySelector(".black-screen");
   blackScreen.classList.remove("none");
-  blackScreen.classList.remove("glitch-effect"); 
-  blackScreen.innerHTML = ""; 
+  blackScreen.classList.remove("glitch-effect");
+  blackScreen.innerHTML = "";
 
   const terminalTextContainer = document.createElement("div");
   terminalTextContainer.classList.add("terminal-text");
@@ -391,10 +371,10 @@ function showTerminalMessage2() {
     if (index === terminalMessage.length) {
       clearInterval(terminalInterval);
       setTimeout(() => {
-        showAntivirusButton(); 
-      }, 2000); 
+        showAntivirusButton();
+      }, 2000);
     }
-  }, 60); 
+  }, 60);
 }
 
 function showAntivirusButton() {
@@ -411,20 +391,16 @@ function showAntivirusButton() {
     }
   });
 
-  
   antivirusButton.addEventListener("click", function () {
     antivirusClickCount++;
 
     if (antivirusClickCount === 2) {
-      
       showExecutionModal();
       antivirusButton.classList.add("none");
     }
   });
 
-  
   showMarkusText("Je ne te laisserai pas faire !", () => {
-    
     disableTerminal();
   });
 }
@@ -463,26 +439,25 @@ function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; 
+  markusContainer.style.display = "inline-block";
   markusContainerText.style.display = "block";
-  markusText.textContent = text; 
+  markusText.textContent = text;
 
   if (callback) {
-    setTimeout(callback, 3000); 
+    setTimeout(callback, 3000);
   }
 }
 
 function disableTerminal() {
   const blackScreen = document.querySelector(".black-screen");
-  blackScreen.classList.add("none"); 
-  blackScreen.innerHTML = ""; 
+  blackScreen.classList.add("none");
+  blackScreen.innerHTML = "";
 
-  
   blackScreen.style.transition = "opacity 1s";
   blackScreen.style.opacity = "0";
 
   setTimeout(() => {
-    blackScreen.style.display = "none"; 
+    blackScreen.style.display = "none";
   }, 1000);
 }
 
@@ -504,10 +479,9 @@ function showExecutionModal() {
 
   document.getElementById("modals-container").appendChild(modal);
 
-  
   setTimeout(() => {
     modal.remove();
-    killMarkus(); 
+    killMarkus();
   }, 3000);
 }
 
@@ -515,9 +489,7 @@ function killMarkus() {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  
   showMarkusText("Oh non, je ne sais pas quoi...", () => {
-    
     markusContainer.style.display = "none";
     markusContainerText.style.display = "none";
   });
@@ -537,11 +509,11 @@ function showMarkusText(text, callback) {
   const markusContainerText = document.getElementById("markus-text-container");
   const markusText = document.getElementById("markus-text");
 
-  markusContainer.style.display = "inline-block"; 
+  markusContainer.style.display = "inline-block";
   markusContainerText.style.display = "block";
-  markusText.textContent = text; 
+  markusText.textContent = text;
 
   if (callback) {
-    setTimeout(callback, 3000); 
+    setTimeout(callback, 3000);
   }
 }
