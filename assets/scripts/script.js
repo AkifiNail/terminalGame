@@ -362,6 +362,8 @@ terminal.registerCommand("/useLampe", () => {
   const hasLamp = terminal.inventory.some((item) => item.includes("Lampe"));
 
   if (hasLamp) {
+    const glitchSound = document.getElementById("glitchSound");
+    glitchSound.play();
     setTimeout(triggerGlitchEffect, 1000);
   } else {
     terminal.printSlow("Vous n'avez pas de lampe dans votre inventaire.");
