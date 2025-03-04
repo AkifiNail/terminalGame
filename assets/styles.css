@@ -293,3 +293,123 @@ canvas {
     opacity: 1;
     pointer-events: all;
 }
+
+
+.starter {
+    position: absolute;
+    background-color: black;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.starter p {
+    text-align: center;
+    color: #33ff33;
+    font-size: 40px;
+    font-weight: bold;
+    animation: fadeIn 3s forwards;
+}
+
+.f11 {
+    height: 100px;
+}
+
+.headset {
+    height: 200px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    animation: fadeIn 3s forwards;
+}
+
+.initializing {
+    color: #33ff33;
+    font-size: 24px;
+    margin-top: 20px;
+    font-family: 'Courier New', Courier, monospace; /* Police de type terminal */
+    animation: blink 1s steps(2, start) infinite; /* Effet de clignotement */
+}
+
+.progress-bar {
+    width: 600px;
+    height: 20px;
+    background-color: #222; /* Fond plus sombre */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    border: 1px solid #33ff33; /* Bordure verte */
+    box-shadow: 0 0 10px #33ff33; /* Lueur verte */
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #33ff33;
+    animation: fillProgress 3s forwards;
+    position: relative;
+}
+
+.progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Effet de scintillement */
+    animation: shine 1.5s infinite;
+}
+
+@keyframes fillProgress {
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.step1 {
+    display: none;
+}
+
+.step1, .starter {
+    transition: opacity 1s ease; /* Transition d'opacité de 1 seconde */
+}

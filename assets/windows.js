@@ -1,4 +1,3 @@
-console.log("Windows.js is loaded");
 setTimeout(function () {
   var video = document.getElementById("intro-video");
   if (video) {
@@ -416,7 +415,7 @@ function showAntivirusButton() {
   antivirusButton.addEventListener("click", function () {
     antivirusClickCount++;
 
-    if (antivirusClickCount === 3) {
+    if (antivirusClickCount === 2) {
       // Afficher la modale d'exécution de l'antivirus
       showExecutionModal();
       antivirusButton.classList.add("none");
@@ -528,6 +527,10 @@ function killMarkus() {
   setTimeout(() => {
     endScreen.classList.remove("none");
   }, 2000);
+
+  setTimeout(() => {
+    window.location.href = "end.html";
+  }, 4000);
 }
 
 function showMarkusText(text, callback) {

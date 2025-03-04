@@ -361,3 +361,33 @@ function triggerGlitchEffect() {
     window.location.href = "windows.html";
   }, 4000);
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+      var step0 = document.querySelector(".step0");
+      var step1 = document.querySelector(".step1");
+      var starterDiv = document.querySelector('.starter');
+
+      // Masquer step0 après 3,5 secondes
+      step0.style.display = "none";
+
+      // Afficher step1 après 3,5 secondes
+      step1.style.display = "block";
+
+      // Après 2 secondes supplémentaires (5,5 secondes au total), réduire l'opacité de step1 et le masquer
+      setTimeout(function() {
+          step1.style.opacity = "0"; // Réduire l'opacité à 0
+          setTimeout(function() {
+              step1.style.display = "none"; // Masquer complètement step1
+
+              // Réduire l'opacité de starterDiv et le masquer
+              starterDiv.style.opacity = "0"; // Réduire l'opacité à 0
+              setTimeout(function() {
+                  starterDiv.style.display = "none"; // Masquer complètement starterDiv
+              }, 1000); // Attendre 1 seconde pour l'animation d'opacité
+          }, 1000); // Attendre 1 seconde pour l'animation d'opacité de step1
+      }, 2000); // Attendre 2 secondes après l'affichage de step1
+
+  }, 3500); // Démarrer après 3,5 secondes
+});
