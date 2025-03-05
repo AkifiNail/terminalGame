@@ -210,6 +210,7 @@ footer{
    
     top: 100px;
     right: 300px;
+    pointer-events: none;
 }
 
 .markus img {

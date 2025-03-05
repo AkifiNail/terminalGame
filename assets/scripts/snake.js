@@ -82,7 +82,7 @@ class SnakeGame {
     if (head.x === this.food.x && head.y === this.food.y) {
       this.score++;
       this.food = this.createFood();
-      if (this.score === 10) {
+      if (this.score === 2) {
         this.terminal.snakeCompleted = true;
         clearInterval(this.gameInterval);
         this.gameOver = true;
